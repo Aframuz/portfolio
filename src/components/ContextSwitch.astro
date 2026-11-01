@@ -47,10 +47,27 @@ import { contexts, defaultContext, switchLabel } from "../data/portfolio";
 	// de pintar); esto solo sincroniza los radios y saca del foco lo oculto.
 	apply(root.dataset.context ?? inputs[0]?.value ?? "");
 
+	// Cambio de contexto con la transición «Focus Pull» (src/styles/segue.css).
+	// Ir a un contexto anterior en la lista la reproduce hacia atrás. Sin View
+	// Transitions el cambio es inmediato; sin tipos, siempre va hacia delante.
+	function switchTo(id: string) {
+		const ids = inputs.map((input) => input.value);
+		const goingBack = ids.indexOf(id) < ids.indexOf(root.dataset.context ?? "");
+		const update = () => apply(id);
+
+		if (!document.startViewTransition) {
+			update();
+		} else if ("types" in ViewTransition.prototype) {
+			document.startViewTransition({ update, types: [goingBack ? "backwards" : "forwards"] });
+		} else {
+			document.startViewTransition(update);
+		}
+	}
+
 	for (const input of inputs) {
 		input.addEventListener("change", () => {
 			if (!input.checked) return;
-			apply(input.value);
+			switchTo(input.value);
 			try {
 				localStorage.setItem(KEY, input.value);
 			} catch {
