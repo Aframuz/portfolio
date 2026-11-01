@@ -1,0 +1,45 @@
+---
+import { contexts } from "../data/portfolio";
+import Education from "./Education.astro";
+import Skills from "./Skills.astro";
+---
+
+<section class="background" id="trayectoria">
+	<h2 class="section-label">Trayectoria</h2>
+
+	<div class="background__column">
+		{
+			contexts.map((context) => (
+				<div class="record" data-context-panel={context.id}>
+					{context.experience.map((job) => (
+						<div class="record__row">
+							<p class="record__title">{job.title}</p>
+							<p class="record__meta">{job.meta}</p>
+						</div>
+					))}
+					<Education items={context.education} />
+				</div>
+			))
+		}
+	</div>
+
+	<div class="background__column" id="stack">
+		{contexts.map((context) => <Skills id={context.id} rows={context.stack} />)}
+	</div>
+</section>
+
+<style>
+	.background {
+		display: grid;
+		grid-template-columns: 180px 1fr 1fr;
+		gap: 48px;
+		padding: 56px var(--pad);
+	}
+
+	@media (max-width: 900px) {
+		.background {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+</style>

@@ -1,0 +1,107 @@
+---
+import { nav, profile } from "../data/portfolio";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="masthead">
+	<a class="masthead__name" href="#inicio">{profile.name}</a>
+	<div class="masthead__right">
+		<nav class="masthead__nav" aria-label="Secciones">
+			<ul class="masthead__list">
+				{
+					nav.map((item) => (
+						<li>
+							<a
+								class:list={["masthead__link", { "masthead__link--accent": item.accent }]}
+								href={item.href}
+							>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<ThemeToggle />
+	</div>
+</header>
+
+<style>
+	.masthead {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		min-height: 72px;
+		padding-inline: var(--pad);
+		border-bottom: 1px solid var(--ink);
+	}
+
+	.masthead__name {
+		font-size: 13px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ink);
+	}
+
+	.masthead__name:hover {
+		color: var(--oxide);
+	}
+
+	.masthead__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 30px;
+	}
+
+	.masthead__right {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+	}
+
+	.masthead__link {
+		display: inline-flex;
+		align-items: center;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ink-muted);
+	}
+
+	.masthead__link:hover {
+		color: var(--ink);
+	}
+
+	.masthead__link--accent {
+		color: var(--oxide);
+	}
+
+	.masthead__link--accent:hover {
+		color: var(--oxide-dark);
+	}
+
+	@media (max-width: 760px) {
+		.masthead {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 4px;
+			padding-block: 16px 4px;
+		}
+
+		.masthead__right {
+			align-items: center;
+			gap: 16px;
+		}
+
+		.masthead__list {
+			gap: 4px 22px;
+		}
+
+		.masthead__link {
+			min-height: 44px;
+		}
+	}
+</style>

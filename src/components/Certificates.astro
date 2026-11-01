@@ -1,0 +1,85 @@
+---
+import { contexts } from "../data/portfolio";
+---
+
+<section class="certs" id="certificados">
+	<h2 class="section-label">Certificaciones</h2>
+
+	<div class="certs__column">
+		{
+			contexts.map((context) => (
+				<div class="record" data-context-panel={context.id}>
+					{context.certificates.map((certificate) => (
+						<div class="record__row certs__row">
+							<div class="certs__body">
+								<p class="record__title">{certificate.name}</p>
+								<p class="record__meta">
+									{certificate.issuer} · {certificate.year}
+								</p>
+							</div>
+
+							{certificate.href && (
+								<a class="certs__link" href={certificate.href} target="_blank" rel="noopener noreferrer">
+									Ver credencial
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+										<path d="M7 17L17 7" />
+										<path d="M8 7h9v9" />
+									</svg>
+								</a>
+							)}
+						</div>
+					))}
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.certs {
+		display: grid;
+		grid-template-columns: 180px 1fr;
+		gap: 48px;
+		padding: 0 var(--pad) 56px;
+	}
+
+	.certs__row {
+		flex-direction: row;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 24px;
+	}
+
+	.certs__body {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
+	}
+
+	.certs__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	@media (max-width: 900px) {
+		.certs {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.certs__row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 12px;
+		}
+	}
+</style>

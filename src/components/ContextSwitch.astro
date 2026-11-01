@@ -1,0 +1,132 @@
+---
+import { contexts, defaultContext, switchLabel } from "../data/portfolio";
+---
+
+<fieldset class="switch">
+	<legend class="section-label switch__legend">{switchLabel}</legend>
+	<div class="switch__control">
+		{
+			contexts.map((context) => (
+				<label class="switch__option" data-option={context.id}>
+					<input
+						class="switch__input"
+						type="radio"
+						name="contexto"
+						value={context.id}
+						checked={context.id === defaultContext}
+						data-context-input
+					/>
+					<span>{context.label}</span>
+				</label>
+			))
+		}
+	</div>
+</fieldset>
+
+<script>
+	const KEY = "portafolio:contexto";
+	const root = document.documentElement;
+	const inputs = [...document.querySelectorAll<HTMLInputElement>("input[data-context-input]")];
+	const panels = [...document.querySelectorAll<HTMLElement>("[data-context-panel]")];
+
+	function apply(id: string) {
+		root.dataset.context = id;
+
+		for (const panel of panels) {
+			const active = panel.dataset.contextPanel === id;
+			panel.inert = !active;
+			panel.setAttribute("aria-hidden", String(!active));
+		}
+
+		for (const input of inputs) {
+			input.checked = input.value === id;
+		}
+	}
+
+	// El contexto ya viene puesto en <html> (por el YAML o por lo guardado antes
+	// de pintar); esto solo sincroniza los radios y saca del foco lo oculto.
+	apply(root.dataset.context ?? inputs[0]?.value ?? "");
+
+	for (const input of inputs) {
+		input.addEventListener("change", () => {
+			if (!input.checked) return;
+			apply(input.value);
+			try {
+				localStorage.setItem(KEY, input.value);
+			} catch {
+				/* modo privado: el cambio vale para esta visita */
+			}
+		});
+	}
+</script>
+
+<style>
+	.switch {
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+
+	.switch__legend {
+		padding: 0;
+		margin-bottom: 12px;
+	}
+
+	.switch__control {
+		display: inline-flex;
+		border: 1px solid var(--ink);
+	}
+
+	.switch__option {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding-inline: 20px;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ink);
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease;
+	}
+
+	.switch__option + .switch__option {
+		border-left: 1px solid var(--ink);
+	}
+
+	.switch__option:hover {
+		background-color: color-mix(in srgb, var(--ink) 7%, transparent);
+	}
+
+	.switch__option:has(:focus-visible) {
+		outline: 2px solid var(--oxide);
+		outline-offset: 2px;
+	}
+
+	.switch__input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		border: 0;
+		clip-path: inset(50%);
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 520px) {
+		.switch__control {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.switch__option + .switch__option {
+			border-left: none;
+			border-top: 1px solid var(--ink);
+		}
+	}
+</style>

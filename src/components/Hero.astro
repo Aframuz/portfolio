@@ -1,0 +1,128 @@
+---
+import { contexts, profile } from "../data/portfolio";
+import ContextSwitch from "./ContextSwitch.astro";
+import UserCard from "./UserCard.astro";
+---
+
+<section class="hero" id="inicio">
+	<div class="hero__intro">
+		<p class="section-label hero__kicker">{profile.kicker}</p>
+
+		<h1 class="hero__title">
+			{
+				contexts.map((context) => (
+					<span class="hero__role" data-role={context.id}>
+						{context.title.map((line, index) => (
+							<>
+								{index > 0 && " "}
+								<span>{line}</span>
+							</>
+						))}
+					</span>
+				))
+			}
+		</h1>
+
+		{
+			contexts.map((context) => (
+				<p class="hero__lead" data-context-panel={context.id}>
+					{context.lead}
+				</p>
+			))
+		}
+
+		<ContextSwitch />
+	</div>
+
+	<div class="hero__aside">
+		<UserCard />
+		<div class="hero__actions">
+			<a class="button button--primary" href={`mailto:${profile.email}`}>Escríbeme</a>
+			<a class="button" href={profile.cv} download>
+				Descargar CV
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+					<path d="M12 3v13"></path>
+					<path d="M6 12l6 6 6-6"></path>
+					<path d="M4 21h16"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		display: flex;
+		gap: 72px;
+		padding: 80px var(--pad) 64px;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.hero__intro {
+		flex-grow: 1;
+		min-width: 0;
+	}
+
+	.hero__kicker {
+		margin-bottom: 28px;
+	}
+
+	.hero__title {
+		display: flex;
+		flex-direction: column;
+		font-size: clamp(40px, 6.4vw, 68px);
+		line-height: 0.97;
+		font-weight: 700;
+		letter-spacing: -0.045em;
+	}
+
+	/* El titular no se duplica: los dos oficios están siempre en la página y el
+	   contexto activo decide cuál va en tinta y arriba. Esas reglas, y el orden
+	   y color de base, viven en Layout.astro porque se generan desde el YAML. */
+
+	.hero__lead {
+		max-width: 560px;
+		min-height: 100px;
+		margin-top: 32px;
+		font-family: var(--serif);
+		font-size: clamp(18px, 1.9vw, 22px);
+		line-height: 1.5;
+		letter-spacing: -0.005em;
+		text-wrap: pretty;
+	}
+
+	.hero__intro :global(.switch) {
+		margin-top: 36px;
+	}
+
+	.hero__aside {
+		width: 380px;
+		flex-shrink: 0;
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: 12px;
+		margin-top: 28px;
+	}
+
+	@media (max-width: 1080px) {
+		.hero {
+			flex-direction: column;
+			gap: 48px;
+			padding-top: 56px;
+		}
+
+		.hero__aside {
+			width: 100%;
+			max-width: 520px;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.hero__actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+</style>

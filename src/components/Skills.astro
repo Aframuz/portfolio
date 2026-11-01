@@ -1,0 +1,82 @@
+---
+import type { StackRow } from "../data/portfolio";
+
+interface Props {
+	id: string;
+	rows: StackRow[];
+}
+
+const { id, rows } = Astro.props;
+---
+
+<div class="stack" data-context-panel={id}>
+	<h3 class="section-label stack__heading">Stack</h3>
+
+	<dl class="stack__list">
+		{
+			rows.map((row) => (
+				<div class="stack__row">
+					<dt class="meta-label stack__label">{row.label}</dt>
+					<dd class:list={["stack__value", { "stack__value--todo": !row.filled }]}>{row.value}</dd>
+				</div>
+			))
+		}
+	</dl>
+</div>
+
+<style>
+	/* En escritorio esta es la tercera columna de Trayectoria y no lleva rótulo;
+	   al apilarse necesita uno para no quedar colgando de la lista anterior. */
+	.stack__heading {
+		display: none;
+		margin-bottom: 24px;
+	}
+
+	.stack__list {
+		margin: 0;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.stack__row {
+		display: flex;
+		gap: 20px;
+		padding-block: 16px;
+		border-top: 1px solid var(--rule);
+	}
+
+	.stack__label {
+		/* Ancho fijo para que los valores se alineen; cabe TRANSFORMACIÓN */
+		width: 120px;
+		flex-shrink: 0;
+		padding-top: 4px;
+	}
+
+	.stack__value {
+		margin: 0;
+		font-family: var(--serif);
+		font-size: 16px;
+		line-height: 1.5;
+	}
+
+	.stack__value--todo {
+		color: var(--ink-muted);
+	}
+
+	@media (max-width: 900px) {
+		.stack__heading {
+			display: block;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.stack__row {
+			flex-direction: column;
+			gap: 6px;
+		}
+
+		.stack__label {
+			width: auto;
+			padding-top: 0;
+		}
+	}
+</style>

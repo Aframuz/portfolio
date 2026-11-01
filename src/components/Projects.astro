@@ -1,0 +1,43 @@
+---
+import { contexts } from "../data/portfolio";
+import ProjectCard from "./ProjectCard.astro";
+---
+
+<section class="work" id="trabajo">
+	<h2 class="section-label work__label"><span>Trabajo</span> <span>seleccionado</span></h2>
+	<div class="work__column">
+		{
+			contexts.map((context) => (
+				<div class="work__list" data-context-panel={context.id}>
+					{context.projects.map((project) => (
+						<ProjectCard {...project} />
+					))}
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.work {
+		display: grid;
+		grid-template-columns: 180px 1fr;
+		gap: 48px;
+		padding: 56px var(--pad) 20px;
+	}
+
+	.work__label span {
+		display: block;
+	}
+
+	@media (max-width: 900px) {
+		.work {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+
+		.work__label span {
+			display: inline;
+		}
+	}
+</style>

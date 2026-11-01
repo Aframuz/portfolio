@@ -1,0 +1,18 @@
+---
+import type { RecordItem } from "../data/portfolio";
+
+interface Props {
+	items: RecordItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+	items.map((item) => (
+		<div class="record__row">
+			<p class="record__title">{item.title}</p>
+			<p class="record__meta">{item.meta}</p>
+		</div>
+	))
+}

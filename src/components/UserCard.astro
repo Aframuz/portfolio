@@ -1,0 +1,121 @@
+---
+// Ficha de datos de la cabecera: la columna derecha del hero.
+import { profile } from "../data/portfolio";
+
+const rows = [
+  { label: "Ubicación", value: profile.location, href: null, accent: false },
+  {
+    label: "Correo",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+    accent: false,
+  },
+  {
+    label: "GitHub",
+    value: profile.github.handle,
+    href: profile.github.href,
+    accent: false,
+  },
+  {
+    label: "LinkedIn",
+    value: profile.linkedin.handle,
+    href: profile.linkedin.href,
+    accent: false,
+  },
+  { label: "Estado", value: profile.availability, href: null, accent: true },
+];
+---
+
+<dl class="card">
+  {
+    rows.map((row) => {
+      const available =
+        row.label === "Estado" && row.value.toLowerCase() === "disponible";
+      return (
+        <div class="card__row">
+          <dt class="meta-label">{row.label}</dt>
+          <dd
+            class:list={[
+              "card__value",
+              { "card__value--accent": row.accent, available },
+            ]}
+          >
+            {row.href ? (
+              <a class="card__link" href={row.href}>
+                {row.value}
+              </a>
+            ) : (
+              row.value
+            )}
+          </dd>
+        </div>
+      );
+    })
+  }
+</dl>
+
+<style>
+  .card {
+    margin: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .card__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 13px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .card__value {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 16px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .card__value--accent {
+    color: var(--oxide);
+  }
+
+  /* Estado "disponible": verde sobrio que reemplaza el óxido por defecto. */
+  .card__value.available {
+	/* font-size: 33px; */
+    font-weight: 600;
+    color: #3d6b35;
+  }
+
+  .card__value.available {
+    -webkit-mask-image: linear-gradient(
+      -75deg,
+      #000 30%,
+      rgba(0, 0, 0, 0.35) 50%,
+      #000 70%
+    );
+    -webkit-mask-size: 200%;
+    animation: shine 3s infinite;
+  }
+
+  @-webkit-keyframes shine {
+    from {
+      -webkit-mask-position: 150%;
+    }
+
+    to {
+      -webkit-mask-position: -50%;
+    }
+  }
+
+  .card__link {
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .card__link:hover {
+    color: var(--oxide);
+    border-bottom-color: currentColor;
+  }
+</style>

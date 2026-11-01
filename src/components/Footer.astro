@@ -1,0 +1,79 @@
+---
+import { profile } from "../data/portfolio";
+---
+
+<footer class="contact" id="contacto">
+	<div class="contact__block">
+		<p class="section-label">Hablemos</p>
+		<a class="contact__email" href={`mailto:${profile.email}`}>{profile.email}</a>
+		<ul class="contact__links">
+			<li><a href={profile.github.href}>{profile.github.display}</a></li>
+			<li><a href={profile.linkedin.href}>{profile.linkedin.display}</a></li>
+			<li><a href={profile.phone.href}>{profile.phone.display}</a></li>
+		</ul>
+	</div>
+
+	<a class="button" href={profile.cv} download>
+		Descargar CV
+		<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+			<path d="M12 3v13"></path>
+			<path d="M6 12l6 6 6-6"></path>
+			<path d="M4 21h16"></path>
+		</svg>
+	</a>
+</footer>
+
+<style>
+	.contact {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 32px;
+		padding: 48px var(--pad) 56px;
+		border-top: 2px solid var(--ink);
+	}
+
+	.contact__block {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		min-width: 0;
+	}
+
+	.contact__email {
+		font-family: var(--serif);
+		font-size: clamp(24px, 3.6vw, 40px);
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+		color: var(--ink);
+		overflow-wrap: anywhere;
+	}
+
+	.contact__email:hover {
+		color: var(--oxide);
+	}
+
+	.contact__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 24px;
+		font-size: 13px;
+		letter-spacing: 0.06em;
+	}
+
+	.contact__links a {
+		color: var(--ink-muted);
+	}
+
+	.contact__links a:hover {
+		color: var(--ink);
+	}
+
+	@media (max-width: 760px) {
+		.contact {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 32px;
+		}
+	}
+</style>

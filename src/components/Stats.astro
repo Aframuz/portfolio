@@ -1,0 +1,74 @@
+---
+import { contexts } from "../data/portfolio";
+---
+
+{
+	contexts.map((context) => (
+		<section class="stats" data-context-panel={context.id}>
+			{context.stats.map((stat) => (
+				<div class="stats__item">
+					<p class="stats__value">{stat.value}</p>
+					<p class="meta-label stats__label">{stat.label}</p>
+				</div>
+			))}
+		</section>
+	))
+}
+
+<style>
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.stats__item {
+		padding: 36px 40px;
+		border-right: 1px solid var(--rule);
+	}
+
+	.stats__item:first-child {
+		padding-left: var(--pad);
+	}
+
+	.stats__item:last-child {
+		padding-right: var(--pad);
+		border-right: none;
+	}
+
+	.stats__value {
+		font-size: clamp(36px, 4.2vw, 50px);
+		line-height: 1;
+		font-weight: 500;
+		letter-spacing: -0.045em;
+	}
+
+	.stats__label {
+		margin-top: 12px;
+	}
+
+	@media (max-width: 760px) {
+		.stats {
+			grid-template-columns: 1fr;
+		}
+
+		.stats__item {
+			display: flex;
+			align-items: baseline;
+			justify-content: space-between;
+			gap: 20px;
+			padding: 20px var(--pad);
+			border-right: none;
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.stats__item:last-child {
+			border-bottom: none;
+		}
+
+		.stats__label {
+			margin-top: 0;
+			text-align: right;
+		}
+	}
+</style>

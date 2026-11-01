@@ -1,0 +1,126 @@
+---
+interface Props {
+	number: string;
+	title: string;
+	summary: string;
+	stack: string;
+	role: string;
+	year: string;
+	href?: string;
+}
+
+const { number, title, summary, stack, role, year, href } = Astro.props;
+---
+
+<article class="entry">
+	<p class="entry__number">{number}</p>
+
+	<div class="entry__body">
+		<h3 class="entry__title">
+			{
+				href ? (
+					<a class="entry__link" href={href}>
+						{title}
+					</a>
+				) : (
+					title
+				)
+			}
+		</h3>
+		<p class="entry__summary">{summary}</p>
+	</div>
+
+	<ul class="entry__meta">
+		<li>{stack}</li>
+		<li>{role}</li>
+		<li>{year}</li>
+	</ul>
+</article>
+
+<style>
+	.entry {
+		display: grid;
+		grid-template-columns: 96px 1fr 200px;
+		gap: 32px;
+		padding-block: 40px;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.entry:first-child {
+		padding-top: 0;
+	}
+
+	.entry__number {
+		font-size: clamp(38px, 4.6vw, 56px);
+		line-height: 0.8;
+		font-weight: 500;
+		letter-spacing: -0.04em;
+		color: var(--oxide);
+	}
+
+	.entry__body {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		min-width: 0;
+	}
+
+	.entry__title {
+		font-size: clamp(24px, 3vw, 34px);
+		line-height: 1.12;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.entry__link {
+		color: var(--ink);
+	}
+
+	.entry__link:hover {
+		color: var(--oxide);
+	}
+
+	.entry__summary {
+		max-width: 460px;
+		font-family: var(--serif);
+		font-size: 17px;
+		line-height: 1.6;
+		color: var(--ink-soft);
+		text-wrap: pretty;
+	}
+
+	.entry__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+	}
+
+	@media (max-width: 900px) {
+		.entry {
+			grid-template-columns: 64px 1fr;
+			gap: 20px 24px;
+		}
+
+		.entry__meta {
+			grid-column: 2;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 8px 20px;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.entry {
+			grid-template-columns: 1fr;
+		}
+
+		.entry__meta {
+			grid-column: 1;
+		}
+	}
+</style>
