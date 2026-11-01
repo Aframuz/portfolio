@@ -1,0 +1,242 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Contenido del portafolio.
+#
+#  Todo lo que está entre [corchetes] es un hueco por rellenar.
+#
+#  La página tiene DOS CONTEXTOS (software / datos). El interruptor del hero
+#  cambia entre ellos y con eso cambian: el titular activo, la presentación,
+#  las cifras, los proyectos, la trayectoria, el stack y las certificaciones.
+#  Lo que está fuera de `contexts` es común a los dos.
+# ─────────────────────────────────────────────────────────────────────────────
+
+profile:
+  name: "Oscar Andrés Francisco Muñoz Santelices"
+  kicker: "Portafolio — Santiago de Chile"
+  location: "Santiago, Chile"
+  email: "oscarmunoz@tutanota.com"
+  phone:
+    display: "+569 3090 6721"
+    href: "tel:+56930906721"
+  github:
+    handle: "/aframuz"
+    display: "github.com/aframuz"
+    href: "https://github.com/aframuz"
+  linkedin:
+    handle: "/in/aframuz"
+    display: "linkedin.com/in/aframuz"
+    href: "https://linkedin.com/in/aframuz"
+  availability: "disponible"
+  cv: "/cv-oscar-munoz.pdf"
+
+nav:
+  - { label: "Inicio", href: "#inicio" }
+  - { label: "Trabajo", href: "#trabajo" }
+  - { label: "Trayectoria", href: "#trayectoria" }
+  - { label: "Stack", href: "#stack" }
+  - { label: "Certificados", href: "#certificados" }
+  - { label: "Contacto", href: "#contacto", accent: true }
+
+switch:
+  label: Contexto
+  # Contexto que se muestra al abrir la página (id de uno de los de abajo).
+  # El navegador recuerda el último elegido por quien visita.
+  default: software
+
+contexts:
+  # ───────────────────────────── DESARROLLO DE SOFTWARE ──────────────────────
+  - id: "software"
+    label: "Desarrollo de software"
+    title: ["Desarrollador", "Full Stack"]
+    lead: >-
+      Desarrollo aplicaciones web de principio a fin, desde la arquitectura y
+      la lógica de negocio hasta interfaces React/TypeScript, testing,
+      despliegue y mantenimiento.
+    stats:
+      - { value: "3+", label: "Años de experiencia con React" }
+      - { value: "3", label: "Proyectos destacados" }
+      - { value: "10+", label: "Tecnologías en uso" }
+
+    projects:
+      - number: "01"
+        title: "BikeShop Manager / VeloService"
+        summary: >-
+          Plataforma para gestionar clientes, bicicletas, inventario y órdenes
+          de trabajo, con panel web y una aplicación móvil complementaria para
+          apoyar la operación diaria de un taller.
+        stack: "React, TypeScript, Vite, Java, Spring Boot, Expo, React Native, PostgreSQL"
+        role: "Desarrollador Full Stack"
+        year: ""
+        href: ""
+
+      - number: "02"
+        title: "Plataforma de Operaciones Financieras"
+        summary: >-
+          Aplicación para administrar clientes, facturas y operaciones de
+          factoring, con reglas de negocio, autenticación, políticas, tablas
+          operativas, exportación de datos y pruebas automatizadas.
+        stack: "Laravel, PHP, Inertia.js, React, TypeScript, Vite, Bootstrap 5, PostgreSQL"
+        role: "Desarrollador Full Stack"
+        year: ""
+        href: ""
+
+      - number: "03"
+        title: "Pipeline ETL Serverless de Alto Volumen"
+        summary: >-
+          Flujo serverless orientado a eventos para validar, transformar y
+          enrutar grandes volúmenes de datos, con jobs ETL incrementales,
+          trazabilidad, métricas y manejo de errores.
+        stack: "Python, AWS Lambda, AWS Glue, Amazon S3, PostgreSQL, CloudWatch"
+        role: "Implementación ETL / Cloud"
+        year: ""
+        href: ""
+
+    experience:
+      - title: "Desarrollador FullStack · Chile Pasajes SPA"
+        meta: "12/2024 — 02/2026 · React, Angular y TypeScript integrados con APIs REST; backend Laravel/PHP y Node.js sobre PostgreSQL/MySQL."
+      - title: "Desarrollador Frontend React / Full Stack · Freelancer"
+        meta: "01/2022 — actualidad · Aplicaciones React/TypeScript, paneles administrativos, autenticación, CRUD, testing, despliegue y mantenimiento."
+      - title: "Desarrollador Web · Freelancer"
+        meta: "07/2018 — 2022 · Sitios y herramientas web a medida con WordPress, JavaScript, PHP, HTML5 y CSS3."
+
+    education:
+      - title: "Analista Programador"
+        meta: "DUOC UC · 2024 — 2026"
+      - title: "Ingeniería de Datos"
+        meta: "DUOC UC · 2026 — actualidad"
+
+    stack:
+      - label: "Lenguajes"
+        value: "TypeScript, JavaScript ES6+, PHP, Java, Python, SQL"
+        filled: true
+      - label: "Frontend"
+        value: "React, Angular, Inertia.js, Vite, Bootstrap 5, React Native, HTML5, CSS3, DataTables/TanStack Table"
+        filled: true
+      - label: "Backend"
+        value: "Laravel, Node.js, Spring Boot, APIs REST, Form Requests, Services, Policies"
+        filled: true
+      - label: "Datos"
+        value: "PostgreSQL, MySQL, MongoDB, Firebase"
+        filled: true
+      - label: "Testing"
+        value: "Vitest, Jest, React Testing Library, Playwright, PHPUnit, Laravel Tests"
+        filled: true
+      - label: "Infra"
+        value: "AWS Lambda, Glue, S3, CloudWatch, Athena, Docker, Docker Compose, CI/CD, GitHub, GitLab, Bitbucket"
+        filled: true
+
+    certificates:
+      - name: "Diseño de Experiencia del Usuario (UX)"
+        issuer: "Google"
+        year: ""
+        href: ""
+      - name: "Desarrollo de aplicaciones Full Stack JavaScript"
+        issuer: "Desafío LATAM"
+        year: ""
+        href: ""
+      - name: "Formación Principiante en Programación G7"
+        issuer: "Oracle Next Education (ONE)"
+        year: ""
+        href: ""
+      - name: "AWS Academy Graduate — AWS Academy Cloud Foundations"
+        issuer: "AWS Academy"
+        year: ""
+        href: ""
+      - name: "Fundamentos de Arquitectura Cloud"
+        issuer: "USACH"
+        year: ""
+        href: ""
+
+  # ───────────────────────────── INGENIERÍA DE DATOS ─────────────────────────
+  - id: "datos"
+    label: "Ingeniería de datos"
+    title: ["Ingeniero", "de datos"]
+    lead: >-
+      Trabajo con datos desde la ingesta y transformación hasta su persistencia
+      y observabilidad, combinando Python, SQL y servicios AWS para construir
+      procesos ETL trazables y mantenibles.
+    stats:
+      - { value: "1", label: "Pipeline ETL destacado" }
+      - { value: "5+", label: "Servicios y herramientas de datos/cloud" }
+      - { value: "2", label: "Motores SQL principales" }
+
+    projects:
+      - number: "01"
+        title: "Pipeline ETL Serverless de Alto Volumen"
+        summary: >-
+          Procesa datos por eventos desde Amazon S3, aplica validación,
+          transformación y control de duplicados con Python, Lambda y Glue, y
+          carga resultados en capas analíticas con monitoreo en CloudWatch.
+        stack: "Python, AWS Lambda, AWS Glue, Amazon S3, PostgreSQL, CloudWatch"
+        role: "Implementación ETL / Cloud"
+        year: ""
+        href: ""
+
+      - number: "02"
+        title: "Plataforma de Operaciones Financieras"
+        summary: >-
+          Centraliza clientes, facturas y operaciones de factoring en
+          PostgreSQL, incorporando validaciones, consultas, filtros, paginación
+          y exportación de datos para apoyar la operación.
+        stack: "PostgreSQL, SQL, Laravel, PHP, React, TypeScript"
+        role: "Desarrollador Full Stack"
+        year: ""
+        href: ""
+
+      - number: "03"
+        title: "BikeShop Manager / VeloService"
+        summary: >-
+          Integra información de clientes, bicicletas, inventario, órdenes,
+          roles y estados operacionales en PostgreSQL mediante APIs REST,
+          exponiéndola a un panel administrativo y una aplicación móvil.
+        stack: "PostgreSQL, Java, Spring Boot, React, TypeScript, React Native"
+        role: "Desarrollador Full Stack"
+        year: ""
+        href: ""
+
+    experience:
+      - title: "Desarrollador FullStack · Chile Pasajes SPA"
+        meta: "12/2024 — 02/2026 · Lógica de negocio, integración de APIs REST y consultas sobre PostgreSQL/MySQL."
+      - title: "Consultor IT · Inversiones Europacific S.A."
+        meta: "01/2014 — 07/2018 · Informes de consultoría IT y automatización de flujos de trabajo para optimizar tiempos internos."
+
+    education:
+      - title: "Ingeniería de Datos"
+        meta: "DUOC UC · 2026 — actualidad"
+      - title: "Analista Programador"
+        meta: "DUOC UC · 2024 — 2026"
+      - title: "Bioquímica"
+        meta: "Universidad de Chile · 2014 — 2019"
+
+    stack:
+      - label: "Lenguajes"
+        value: "Python, SQL, JavaScript, TypeScript, Java, PHP"
+        filled: true
+      - label: "Ingesta"
+        value: "AWS Lambda, Amazon S3, APIs REST"
+        filled: true
+      - label: "Transformación"
+        value: "AWS Glue, Python"
+        filled: true
+      - label: "Almacén"
+        value: "PostgreSQL, MySQL, Amazon S3, Athena"
+        filled: true
+      - label: "Observabilidad"
+        value: "CloudWatch, logging, métricas, manejo de errores y trazabilidad"
+        filled: true
+      - label: "Infra"
+        value: "AWS, Docker, Docker Compose, CI/CD"
+        filled: true
+
+    certificates:
+      - name: "AWS Academy Graduate — AWS Academy Cloud Foundations"
+        issuer: "AWS Academy"
+        year: ""
+        href: ""
+      - name: "Fundamentos de Arquitectura Cloud"
+        issuer: "USACH"
+        year: ""
+        href: ""
+      - name: "Desarrollo de aplicaciones Full Stack JavaScript"
+        issuer: "Desafío LATAM"
+        year: ""
+        href: ""
