@@ -1,0 +1,250 @@
+---
+import "normalize.css";
+import "@fontsource-variable/archivo/wght.css";
+import "@fontsource-variable/source-serif-4/opsz.css";
+import { contextIds, defaultContext, profile } from "../data/portfolio";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = `${profile.name} — Desarrollador de software e ingeniero de datos`,
+	description = profile.kicker,
+} = Astro.props;
+
+// Reglas que dependen del contexto activo. Se generan a partir del YAML para
+// que añadir un contexto nuevo no obligue a tocar el CSS.
+const contextCss = [
+	// Base: los dos oficios del titular se apilan por sus líneas y el inactivo
+	// queda en gris. Vive aquí, y no en Hero.astro, para que las reglas del
+	// contexto activo lo ganen siempre por especificidad.
+	`[data-role] { order: 2; color: var(--ghost); }
+[data-role] > span { display: block; }`,
+	...contextIds.map(
+		(id) => `
+html[data-context="${id}"] [data-context-panel]:not([data-context-panel="${id}"]) { display: none !important; }
+html[data-context="${id}"] [data-role="${id}"] { order: 1; color: var(--ink); }
+html[data-context="${id}"] [data-option="${id}"] { background-color: var(--ink); color: var(--paper); }`,
+	),
+].join("\n");
+
+// Restaura el contexto guardado antes de pintar, para que no haya parpadeo.
+const bootScript = `(function(){try{var ids=${JSON.stringify(contextIds)};
+var saved=localStorage.getItem("portafolio:contexto");
+if(saved&&ids.indexOf(saved)!==-1){document.documentElement.dataset.context=saved;}
+}catch(e){}})();`;
+
+// Restaura el tema guardado (o el del sistema) antes de pintar, para que no
+// haya parpadeo. Misma idea que el contexto: corre en <head>, sincrónico.
+const themeBootScript = `(function(){try{
+var saved=localStorage.getItem("portafolio:tema");
+var prefersDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;
+document.documentElement.dataset.theme=saved||(prefersDark?"dark":"light");
+}catch(e){}})();`;
+---
+
+<!doctype html>
+<html lang="es" data-context={defaultContext} data-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<style is:inline set:html={contextCss}></style>
+		<script is:inline set:html={bootScript}></script>
+		<script is:inline set:html={themeBootScript}></script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		/* Papel y tinta: blancos y negros templados, nada saturado */
+		--paper: #f5f2eb;
+		--ink: #1a1815;
+		--ink-soft: #4a453d;
+		--ink-muted: #6b6459;
+		--ink-faint: #8c8377;
+		--ghost: #c4bdb0;
+		--rule: #cfc9be;
+		--oxide: #a42303;
+		--oxide-dark: #7d1a02;
+
+		--sans: "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
+		--serif: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+
+		/* Margen lateral: 72px en escritorio, proporcional abajo */
+		--pad: clamp(20px, 5.6vw, 72px);
+	}
+
+	/* Modo oscuro: mismo espíritu "papel y tinta", invertido. El papel se
+	   vuelve un negro tibio y la tinta un marfil, para no romper el tono
+	   editorial. El óxido sube de saturación para no apagarse sobre fondo oscuro. */
+	html[data-theme="dark"] {
+		--paper: #16140f;
+		--ink: #ece7db;
+		--ink-soft: #c4bcae;
+		--ink-muted: #9c9587;
+		--ink-faint: #76705f;
+		--ghost: #423d33;
+		--rule: #2a2820;
+		--oxide: #d24420;
+		--oxide-dark: #b8391a;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		background-color: var(--paper);
+		color: var(--ink);
+		font-family: var(--sans);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	h1,
+	h2,
+	h3,
+	p,
+	ul {
+		margin: 0;
+	}
+
+	ul {
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		color: var(--oxide);
+		text-decoration: none;
+	}
+
+	a:hover {
+		color: var(--oxide-dark);
+	}
+
+	[hidden] {
+		display: none !important;
+	}
+
+	::selection {
+		background-color: var(--oxide);
+		color: var(--paper);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--oxide);
+		outline-offset: 3px;
+	}
+
+	/* Utilidades compartidas entre secciones */
+	.gutter {
+		padding-inline: var(--pad);
+	}
+
+	.section-label {
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+	}
+
+	.meta-label {
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+	}
+
+	/* Listas con filetes: trayectoria, educación y certificados */
+	.record {
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.record__row {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding-block: 16px;
+		border-top: 1px solid var(--rule);
+	}
+
+	.record__title {
+		font-size: 18px;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.record__meta {
+		font-family: var(--serif);
+		font-size: 15px;
+		line-height: 1.45;
+		color: var(--ink-muted);
+	}
+
+	/* Botones: rectos, sin radio, sin degradados */
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		height: 50px;
+		padding-inline: 24px;
+		border: 1px solid var(--ink);
+		background-color: transparent;
+		color: var(--ink);
+		font-family: var(--sans);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.button:hover {
+		background-color: var(--ink);
+		color: var(--paper);
+	}
+
+	.button--primary {
+		border-color: var(--oxide);
+		background-color: var(--oxide);
+		color: var(--paper);
+	}
+
+	.button--primary:hover {
+		border-color: var(--oxide-dark);
+		background-color: var(--oxide-dark);
+		color: var(--paper);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+
+		* {
+			transition-duration: 0.01ms !important;
+		}
+	}
+</style>

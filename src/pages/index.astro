@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Stats from "../components/Stats.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Certificates from "../components/Certificates.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+	<div class="page">
+		<Navbar />
+		<main>
+			<Hero />
+			<Stats />
+			<Projects />
+			<Experience />
+			<Certificates />
+		</main>
+		<Footer />
+	</div>
+</Layout>
+
+<style>
+	.page {
+		max-width: 1280px;
+		margin-inline: auto;
+	}
+</style>
