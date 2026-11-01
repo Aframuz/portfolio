@@ -91,12 +91,12 @@ contexts:
         href: ""
 
     experience:
+      - title: "Desarrollador FullStack · Bolsa de Productos"
+        meta: "09/2026 — Actualidad · React y TypeScript integrados con APIs REST; backend Laravel/PHP sobre PostgreSQL/MySQL."
       - title: "Desarrollador FullStack · Chile Pasajes SPA"
-        meta: "12/2024 — 02/2026 · React, Angular y TypeScript integrados con APIs REST; backend Laravel/PHP y Node.js sobre PostgreSQL/MySQL."
+        meta: "12/2022 — 02/2026 · React, Angular y TypeScript integrados con APIs REST; backend Laravel/PHP y Node.js sobre PostgreSQL/MySQL."
       - title: "Desarrollador Frontend React / Full Stack · Freelancer"
         meta: "01/2022 — actualidad · Aplicaciones React/TypeScript, paneles administrativos, autenticación, CRUD, testing, despliegue y mantenimiento."
-      - title: "Desarrollador Web · Freelancer"
-        meta: "07/2018 — 2022 · Sitios y herramientas web a medida con WordPress, JavaScript, PHP, HTML5 y CSS3."
 
     education:
       - title: "Analista Programador"
